@@ -1,19 +1,20 @@
 import { useState, useEffect, useContext } from "react";
 import ThemeContext from "./ThemeContext";
 import useBreedList from "./useBreedList";
-
+import { useSelector, useDispatch } from "react-redux";
+import changeLocation from "./actionCreators/changeLocation";
 import Results from "./Results";
 
 const ANIMALS = ["bird", "cat", "dog", "rabbit", "reptile"];
 
 const SearchParams = () => {
-  const [location, setLocation] = useState("Delhi");
+  const location = useSelector((state) => state.location);
+  const theme = useSelector((state) => state.theme);
   const [animal, setAnimal] = useState("");
   const [breed, setBreed] = useState("");
   const [pets, setPets] = useState([]);
   const [breeds] = useBreedList(animal);
-  const [theme, setTheme] = useContext(ThemeContext);
-
+  const dispatch = useDispatch();
   useEffect(() => {
     requestPets();
   }, []);
@@ -38,7 +39,7 @@ const SearchParams = () => {
           Location
           <input
             id="location"
-            onChange={(e) => setLocation(e.target.value)}
+            onChange={(e) => dispatch(changeLocation(e.target.value))}
             value={location}
             placeholder="location"
           />

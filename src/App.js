@@ -5,12 +5,12 @@ import Pet from "./Pet";
 import SearchParams from "./SearchParams";
 import Details from "./Details";
 import { BrowserRouter as Router, Route, Switch, Link } from "react-router-dom";
-import ThemeContext from "./ThemeContext";
 
+import { Provider } from "react-redux";
+import store from "./store";
 const App = () => {
-  const theme = useState("darkblue");
   return (
-    <ThemeContext.Provider value={theme}>
+    <Provider store={store}>
       <div>
         <Router>
           <header>
@@ -29,7 +29,7 @@ const App = () => {
           </Switch>
         </Router>
       </div>
-    </ThemeContext.Provider>
+    </Provider>
   );
 };
 ReactDOM.render(<App />, document.getElementById("root"));
